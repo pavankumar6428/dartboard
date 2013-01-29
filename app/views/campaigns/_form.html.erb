@@ -1,0 +1,59 @@
+<%= form_for @campaign, :html => { :class => 'form-horizontal', :multipart => true } do |f| %>
+  <div class="control-group">
+    <%= f.label :campaign_name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :campaign_name, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :impression_id, :class => 'control-label' %>
+    <div class="controls">
+       <%= f.collection_select :impression_id, Impression.where("user_id=?",current_user.id), :id, :name,:include_blank => 'select one' %>
+    </div>
+  </div>
+   <div class="control-group">
+    <%= f.label :impression_count, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :impression_count, :class => 'number_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :start_date, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.date_select :start_date, :class => 'date_select' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :time_frame, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :time_frame, options_for_select([['10am-1pm',"session1"],['1pm-5pm',"session2"],['5pm',"session3"]]) %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :photo_file_name, :class => 'control-label' %>
+    <div class="controls">
+     <%= f.file_field :photo %>
+    </div>
+  </div>
+
+  <div class="control-group">
+  <% for city in City.find_all_by_jb_present('Y') %>
+   <h4><%= city.name %></h4>
+    <hr>
+    <% for branch in Branch.only_branches.find_all_by_city_id(city.id) %>
+      <div class="control-group">
+       <%= check_box_tag "campaign[branch_ids][]", branch.id, @campaign.branches.include?(branch) %>
+       <%= branch.name %>
+      </div>
+    <% end %>
+     <hr>
+  <% end %>
+  </div>
+
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                campaigns_path, :class => 'btn' %>
+  </div>
+<% end %>

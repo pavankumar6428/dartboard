@@ -58,5 +58,6 @@ module Dartboard
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+    config.secret_token = 'acd92c67bf0a0b1cbf69a1817d61426bf5997aa5481a9849fa69842c961b71b6b558df532cdb89f4510b4fbb8ad58281d467799e045dc96803c572c477989f99'
   end
 end

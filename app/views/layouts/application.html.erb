@@ -1,14 +1,63 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Dartboard</title>
+  <title>Dirt</title>
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+  <![endif]-->
+
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+ <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>  
+        <div class="nav-collapse">
+          <ul class="nav">
+          	<li><%= link_to "Home", root_path %></li>
+            <li><%= link_to "Price List", price_path %></li>
+            <li><%= link_to "Contact Us", contact_path %></li>
+            <li><%= link_to "About", about_path %></li>
+            <li><%= link_to "sign_in", new_user_session_path %></li>
+          </ul>
+          <div id="user_nav">
+            <% if user_signed_in? %>
+              Signed in as <%= current_user.email %>. Not you?
+              <%= link_to "Sign out", destroy_user_session_path %>
+            <% else %>
+              <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="container">
 
-<%= yield %>
-
+<div class = "row">
+	<div class="span2">
+		<% logo = image_tag("Icon.jpg", :alt => "Sample App", :class => "round") %>
+		<%= link_to logo, root_path %>
+	</div>
+	<div class="span10">
+    
+      <% flash.each do |name, msg| %>
+       <div class="alert">
+         <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <%= content_tag :div, msg, :id => "flash_#{msg}"%>
+         </div>
+      <% end %>
+		<%= yield %>
+	</div>
+</div>
+</div>
 </body>
 </html>
