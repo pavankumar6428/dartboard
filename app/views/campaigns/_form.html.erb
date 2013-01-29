@@ -1,4 +1,17 @@
 <%= form_for @campaign, :html => { :class => 'form-horizontal', :multipart => true } do |f| %>
+  
+  <% if @campaign.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@campaign.errors.count, "error") %> prohibited this campaign from being saved:</h2>
+
+      <ul>
+      <% @campaign.errors.full_messages.each do |msg| %>
+        <li><p class="text-error"><%= msg %></li></p>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <div class="control-group">
     <%= f.label :campaign_name, :class => 'control-label' %>
     <div class="controls">
@@ -20,7 +33,7 @@
   <div class="control-group">
     <%= f.label :start_date, :class => 'control-label' %>
     <div class="controls">
-      <%= f.date_select :start_date, :class => 'date_select' %>
+      <%= f.text_field :start_date, :class => 'date_picker_input' %>
     </div>
   </div>
   <div class="control-group">
@@ -36,12 +49,16 @@
     </div>
   </div>
 
+  <h4>select Branch </h4>
+
   <div class="control-group">
   <% for city in City.find_all_by_jb_present('Y') %>
-   <h4><%= city.name %></h4>
+
+     <h5><%= city.name %></h5>
     <hr>
     <% for branch in Branch.only_branches.find_all_by_city_id(city.id) %>
-      <div class="control-group">
+
+      <div class="checkbox">
        <%= check_box_tag "campaign[branch_ids][]", branch.id, @campaign.branches.include?(branch) %>
        <%= branch.name %>
       </div>
@@ -57,3 +74,9 @@
                 campaigns_path, :class => 'btn' %>
   </div>
 <% end %>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+      $(".date_picker_input").datepicker({ dateFormat: 'dd-mm-yy' });
+     });
+</script>

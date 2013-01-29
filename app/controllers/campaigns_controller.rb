@@ -1,7 +1,7 @@
 class CampaignsController < ApplicationController
 
   def index
-    @campaigns = Campaign.find(:all)
+    @campaigns = Campaign.find_all_by_user_id(current_user.id)
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @campaign }

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130129063242) do
+ActiveRecord::Schema.define(:version => 20130129125707) do
 
   create_table "branches_campaigns", :id => false, :force => true do |t|
     t.integer "campaign_id", :precision => 38, :scale => 0
@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(:version => 20130129063242) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size",    :precision => 38, :scale => 0
     t.datetime "photo_updated_at"
+    t.decimal  "impressions_used"
+    t.decimal  "status"
   end
 
   create_table "impressions", :force => true do |t|
@@ -63,6 +65,7 @@ ActiveRecord::Schema.define(:version => 20130129063242) do
     t.string   "company"
     t.string   "jb_membership"
     t.string   "phonenumber"
+    t.decimal  "total_impressions"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

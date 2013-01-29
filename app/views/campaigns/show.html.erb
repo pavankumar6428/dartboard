@@ -23,6 +23,12 @@
   <dt><strong><%= model_class.human_attribute_name(:photo_updated_at) %>:</strong></dt>
   <dd><%= @campaign.photo_updated_at %></dd>
 </dl>
+<strong>Brances selected for campaign</strong>
+<dl class="dl-horizontal">
+  <% @campaign.branches.each do |branch| %>
+  <dd><%= Branch.find_by_id(branch.id).name %></dd>
+  <% end %>
+</dl>
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
