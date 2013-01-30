@@ -7,6 +7,7 @@ class Impression < ActiveRecord::Base
   after_create :increment_impression
 
   def increment_impression
-     self.user.total_impressions = self.user.total_impressions + self.impression_count
+     user.total_impressions = user.total_impressions + impression_count
+     user.save
   end
 end

@@ -6,14 +6,14 @@
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:campaign_name) %>:</strong></dt>
   <dd><%= @campaign.campaign_name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:impression_id) %>:</strong></dt>
-  <dd><%= @campaign.impression_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:impression_count) %>:</strong></dt>
+  <dd><%= @campaign.impression_count %></dd>
   <dt><strong><%= model_class.human_attribute_name(:start_date) %>:</strong></dt>
   <dd><%= @campaign.start_date %></dd>
   <dt><strong><%= model_class.human_attribute_name(:time_frame) %>:</strong></dt>
   <dd><%= @campaign.time_frame %></dd>
   <dt><strong><%= model_class.human_attribute_name(:user_id) %>:</strong></dt>
-  <dd><%= @campaign.user_id %></dd>
+  <dd><%= User.find_by_id(@campaign.user_id).try(:name) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:photo_file_name) %>:</strong></dt>
   <dd><%= @campaign.photo_file_name %></dd>
   <dt><strong><%= model_class.human_attribute_name(:photo_content_type) %>:</strong></dt>

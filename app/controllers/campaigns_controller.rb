@@ -23,9 +23,9 @@ class CampaignsController < ApplicationController
   end
 
   def create
-    @campaign = Campaign.create(params[:campaign])
+    @campaign = Campaign.build(params[:campaign])
     respond_to do |format|
-      if @campaign.save 
+      if @campaign.save
         format.html { redirect_to campaign_path(@campaign.id), :notice => 'New campaign was successfully created.'}
         format.xml  { render :xml => @campaign.branchid, :status => :created, :location => @campaign }
       else
@@ -43,13 +43,23 @@ class CampaignsController < ApplicationController
   def update
     @campaign = Campaign.find(params[:id])
     respond_to do |format|
-      if @campaign.update_attributes(params[:id])
+      if @campaign.update_attributes(params[:campaign])
         format.html { redirect_to campaign_path(@campaign.id), :notice => 'campaign was successfully updated.' }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @campaign.errors, :status => :unprocessable_entity }
       end
+    end
+  end
+
+   def destroy
+    @campaign = Campaign.find(params[:id])
+    @campaign.destroy
+
+    respond_to do |format|
+      format.html { redirect_to(campaigns_path) }
+      format.xml  { head :ok }
     end
   end
 

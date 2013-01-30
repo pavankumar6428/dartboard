@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
 
   validates :name, :presence => true
   validates :jb_membership, :presence =>true
-  before_save :set_defaults
+  before_create :set_defaults
 
 
   def set_defaults

@@ -1,4 +1,4 @@
-<%= form_for @campaign, :html => { :class => 'form-horizontal', :multipart => true } do |f| %>
+<%= form_for @campaign, :validate => true, :html => { :class => 'form-horizontal', :multipart => true } do |f| %>
   
   <% if @campaign.errors.any? %>
     <div id="error_explanation">
@@ -27,7 +27,11 @@
    <div class="control-group">
     <%= f.label :impression_count, :class => 'control-label' %>
     <div class="controls">
-      <%= f.number_field :impression_count, :class => 'number_field' %>
+      <% if f.object.impression_count %>
+      <%= f.number_field :impression_count, :class => 'number_field', :disabled => true %>
+      <% else %>
+       <%= f.number_field :impression_count, :class => 'number_field' %>
+      <% end %>
     </div>
   </div>
   <div class="control-group">
@@ -39,12 +43,13 @@
   <div class="control-group">
     <%= f.label :time_frame, :class => 'control-label' %>
     <div class="controls">
-      <%= f.select :time_frame, options_for_select([['10am-1pm',"session1"],['1pm-5pm',"session2"],['5pm',"session3"]]) %>
+      <%= f.select :time_frame, options_for_select([['10am-1pm',"session1"],['1pm-5pm',"session2"],['5pm-10pm',"session3"]]) %>
     </div>
   </div>
   <div class="control-group">
     <%= f.label :photo_file_name, :class => 'control-label' %>
     <div class="controls">
+       <%= image_tag f.object.photo.url(:small) %>
      <%= f.file_field :photo %>
     </div>
   </div>
@@ -67,7 +72,8 @@
   <% end %>
   </div>
 
-  <%= f.hidden_field :user_id, :value => current_user.id %>
+     <%= f.hidden_field :user_id, :value => current_user.id,  %>
+ 
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
@@ -77,6 +83,6 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-      $(".date_picker_input").datepicker({ dateFormat: 'dd-mm-yy' });
+      $(".date_picker_input").datepicker({ format: 'yyyy-mm-dd' });
      });
 </script>
