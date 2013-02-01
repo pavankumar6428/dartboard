@@ -1,16 +1,11 @@
 <html>
 <body>
-<h2>Welcome to Dartboard</h2>
-	<% if user_signed_in? %>
 
+	<% if user_signed_in? %>
+			<h2>Welcome to Dartboard</h2>
 		   <a href="/campaigns" class="btn btn-large btn-primary" >Campagin </a>
 	<% else %>
-		<p>
-		  Please Sign_in to go further process.
-		</p>    
-		<p>
-			<a href="/users/sign_in" class="btn btn-large btn-primary" :align>sign_in</a>
-		</p>
+	    <%= render :partial => 'images' %>
 	<% end %>
 
 </html>

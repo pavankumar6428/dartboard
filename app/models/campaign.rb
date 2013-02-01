@@ -24,6 +24,7 @@ class Campaign < ActiveRecord::Base
   set_date_columns :start_date
 
   after_create { decrement_impression }
+  after_destroy { increment_impression }
 
   def impression_limit
     if user && impression_count
@@ -50,6 +51,11 @@ class Campaign < ActiveRecord::Base
       c.user_id = params["user_id"]
 
     end
+  end
+  
+  def increment_impression
+     user.total_impressions = user.total_impressions + impression_count - impressions_used
+     user.save
   end
 
 end

@@ -12,7 +12,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
- <div class="navbar navbar-fixed-top">
+  <div id="header">
+    <div class="container">
+      <div class="row">
+          <a href"http://justbooksclc.com/" class="logo">
+            <img alt="justbooks" height="70" src="http://cdn2.justbooksclc.com/static/images/JustBooks.jpg" width="280"/>
+          </a>
+      </div>
+    </div>
+  </div>
+ <div class="navbar">
     <div class="navbar-inner">
       <div class="container">
         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -41,13 +50,8 @@
     </div>
   </div>
 <div class="container">
-
-<div class = "row">
-	<div class="span2">
-		<% logo = image_tag("Icon.jpg", :alt => "Sample App", :class => "round") %>
-		<%= link_to logo, root_path %>
-	</div>
-	<div class="span10">
+  <div id="row">
+	<div class="span12">
     
       <% flash.each do |name, msg| %>
        <div class="alert">
@@ -57,6 +61,15 @@
       <% end %>
 		<%= yield %>
 	</div>
+</div>
+</div>
+ <div class="navbar-fixed-bottom">
+<div id= "footer" >
+  <div class="container">
+    <p class= "muted credit"> 
+      Welcome to Dirt!
+    </p>
+  </div>
 </div>
 </div>
 </body>
